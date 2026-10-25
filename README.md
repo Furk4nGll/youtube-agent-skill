@@ -92,6 +92,10 @@ five channels). It separates deliberately bad hooks from real ones well. It sepa
 creator's hits from their own misses barely at all. A low score is a reason to look again; a high
 score is not a promise.
 
+**Turkish works, uncalibrated.** `hookscore.py`, the 21 formulas and `deadair.py` read Turkish as
+well as English. The Turkish weights have not been measured against real Turkish hooks yet, so
+compare Turkish scores with each other, not with English ones.
+
 **The formula classifier is about the words, not the result.** When `/yt-viral` says a title used
 The Statistic, that is a judgement about the title you can see, not a claim about why the video got
 its views.

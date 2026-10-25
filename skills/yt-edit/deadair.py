@@ -6,7 +6,7 @@
 
 Finds three things and prints the cuts as a list you can act on, newest problem first:
   DEAD    gaps between spoken cues longer than the floor
-  FILLER  cues that are only filler ("um", "so yeah", "basically")
+  FILLER  cues that are only filler ("um", "so yeah", "basically", "ıı", "yani", "şey")
   REPEAT  a sentence restarted - the second take of the same opening
 
 WHAT IT DOES NOT DO. It does not cut the file. It prints an EDL, the total it would remove, and the
@@ -15,7 +15,11 @@ runtime you would land on, and you apply it in whatever editor you use. Nothing 
 import json, os, re, sys
 
 FILLER_ONLY = re.compile(r"^[\s,.-]*((um+|uh+|er+|ah+|so|okay|ok|right|yeah|like|anyway|basically|"
-                         r"actually|you know|i mean|let me see|hold on)[\s,.-]*)+$", re.I)
+                         r"actually|you know|i mean|let me see|hold on|"
+                         # Turkish: hesitation sounds, then the filler words and phrases
+                         r"ee+|ı+|hı+|hm+|mm+|şey|yani|hani|işte|tamam|evet|neyse|aslında|açıkçası|"
+                         r"falan|filan|efendim|şöyle|öyle|ya|valla(hi)?|bir saniye|dur bakayım|"
+                         r"nasıl desem|ne diyordum|ne diyecektim)[\s,.-]*)+$", re.I)
 
 def parse_ts(s):
     s = s.strip().replace(",", ".")
@@ -38,7 +42,10 @@ def load(path):
             cur[2].append(line.strip())
     return [(a, b, " ".join(t)) for a, b, t in cues if t]
 
-def norm(t): return re.sub(r"[^a-z ]", "", t.lower()).split()
+def lower(t): return t.replace("İ", "i").lower()
+
+# \w, not a-z: an ASCII class turns "çok güzel" into "ok gzel" and misses every Turkish retake
+def norm(t): return re.sub(r"[^\w ]|\d|_", "", lower(t)).split()
 
 def main():
     a = sys.argv[1:]
@@ -66,8 +73,10 @@ def main():
             j = i - 1
             while j >= 0 and (FILLER_ONLY.match(cues[j][2]) or not cues[j][2].strip()): j -= 1
             if j >= 0:
+                # Compared on the first five letters of each word: a Turkish retake keeps the root
+                # and changes the suffix ("görüntüyü" -> "görüntüye"), so whole words never match.
                 a1, b1 = norm(cues[j][2])[:5], norm(t)[:5]
-                if len(a1) >= 3 and a1 == b1:
+                if len(a1) >= 3 and [w[:5] for w in a1] == [w[:5] for w in b1]:
                     cuts.append({"kind": "REPEAT", "start": cues[j][0], "end": cues[j][1],
                                  "why": f'restart of "{" ".join(a1)}"'})
     cuts = [c for c in cuts if c["end"] > c["start"]]

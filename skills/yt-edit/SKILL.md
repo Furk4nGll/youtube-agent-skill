@@ -23,7 +23,8 @@ track YouTube generates on an unlisted upload all work. Do not guess at timings.
 
 - **DEAD** - gaps longer than the floor, trimmed from the MIDDLE so both sides keep a breath.
   Cutting flush against speech is what makes a tightened take sound gasping.
-- **FILLER** - cues that are nothing but "um", "so yeah", "basically".
+- **FILLER** - cues that are nothing but "um", "so yeah", "basically" - or, in Turkish, "ıı", "yani", "şey",
+  "hani", "işte".
 - **REPEAT** - a sentence restarted. Compared against the last cue that was actually speech, not
   the literal previous cue, because most retakes have an "um" between the two attempts.
 

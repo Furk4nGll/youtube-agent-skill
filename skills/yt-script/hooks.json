@@ -1,6 +1,6 @@
 {
- "version": "1.0",
- "note": "21 hook formulas for YouTube. A YouTube hook is the first 15 seconds and it does three jobs: confirm the click the title promised, raise a question the viewer cannot close, and prove the payoff exists. A hook that only does the third is a summary and it leaks. Every formula here carries the shape, a worked example, the failure mode, and the patterns hookscore.py classifies transcribed speech against.",
+ "version": "1.1",
+ "note": "21 hook formulas for YouTube. A YouTube hook is the first 15 seconds and it does three jobs: confirm the click the title promised, raise a question the viewer cannot close, and prove the payoff exists. A hook that only does the third is a summary and it leaks. Every formula here carries the shape, a worked example, the failure mode, and the patterns hookscore.py classifies transcribed speech against. Each formula's match list carries Turkish patterns after the English ones, and example_tr is the same hook in Turkish.",
  "rules": [
   "Confirm the title in the first sentence. A hook that ignores its own title is why people leave at 0:08.",
   "One idea. A hook carrying two promises keeps neither.",
@@ -18,8 +18,12 @@
    "match": [
     "\\b\\d+(\\.\\d+)?\\s?%",
     "\\b\\d+ (out of|in) \\d+\\b",
-    "\\b\\d{2,}(,\\d{3})+\\b"
-   ]
+    "\\b\\d{2,}(,\\d{3})+\\b",
+    "%\\s?\\d+",
+    "\\b\\d+ kişiden \\d+",
+    "\\b\\d+\\s?(bin|milyon|milyar)\\b"
+   ],
+   "example_tr": "İçerik üretmeye başlayanların %97'si 30. videodan önce bırakıyor. Kalan %3'ün farkı şu."
   },
   {
    "id": "someone-elses-result",
@@ -30,8 +34,12 @@
    "match": [
     "\\bthis (channel|guy|creator|account)\\b",
     "\\bwent from .* to\\b",
-    "\\bin (a|one|two|three|\\d+) (week|month|year)s?\\b"
-   ]
+    "\\bin (a|one|two|three|\\d+) (week|month|year)s?\\b",
+    "\\bbu (kanal|adam|kadın|kişi|hesap|youtuber)\\w*",
+    "\\b\\w+(dan|den|tan|ten) .*\\b(çıktı|ulaştı|çıkardı)\\b",
+    "\\b\\d+ (hafta|ay|yıl)(da|de|ta|te)\\b"
+   ],
+   "example_tr": "Bu kanal tek bir formatla yedi ayda 400 aboneden 200 bine çıktı. Haritasını çıkardım."
   },
   {
    "id": "the-mistake",
@@ -42,8 +50,14 @@
    "match": [
     "\\byou('re| are) (probably |still )?(doing|making)\\b",
     "\\bthe (mistake|reason) (everyone|most people|nobody)\\b",
-    "\\bstop (doing )?\\b"
-   ]
+    "\\bstop (doing )?\\b",
+    "\\b(yapıyorsun|yapıyorsunuz|yapıyor olabilirsin)\\b",
+    "\\b(herkesin|çoğu kişinin|kimsenin|herkes) .*\\bhata\\w*",
+    "\\b(yapmayı )?bırak(ın)?\\b",
+    "\\bsebebi\\b.*\\b(ilk|senin|sizin)\\b",
+    "\\b(konu|sorun|mesele) (bu )?değil\\b"
+   ],
+   "example_tr": "Videolarını kimsenin sonuna kadar izlememesinin sebebi ilk 30 saniyen. Konu değil."
   },
   {
    "id": "contrarian-flip",
@@ -54,8 +68,12 @@
    "match": [
     "\\beveryone (says|thinks|tells you)\\b",
     "\\bis (actually )?wrong\\b",
-    "\\bnobody (tells|talks about)\\b"
-   ]
+    "\\bnobody (tells|talks about)\\b",
+    "\\bherkes\\b.*\\b(diyor|söylüyor|sanıyor|düşünüyor)\\b",
+    "\\b(aslında )?yanlış\\b",
+    "\\bkimse (söylemiyor|bahsetmiyor|anlatmıyor)\\b"
+   ],
+   "example_tr": "Herkes her gün paylaş diyor. Ben bir yıl haftada bir paylaştım ve kanalı üçe katladım."
   },
   {
    "id": "the-reveal",
@@ -66,8 +84,12 @@
    "match": [
     "\\bI('m| am) going to show you\\b",
     "\\bhere('s| is) (the|exactly)\\b",
-    "\\bon screen\\b"
-   ]
+    "\\bon screen\\b",
+    "\\b(size|sana)? ?göstereceğim\\b",
+    "\\bişte (tam olarak|o|bu)\\b",
+    "\\bekranda\\b"
+   ],
+   "example_tr": "Bu videoyu yazan prompt'u birebir, ekranda göstereceğim."
   },
   {
    "id": "the-superlative",
@@ -77,8 +99,12 @@
    "fails_when": "Superlatives are cheap. Earn it by naming what it beat.",
    "match": [
     "\\bthe (best|worst|fastest|easiest|only)\\b",
-    "\\bnumber one\\b"
-   ]
+    "\\bnumber one\\b",
+    "\\ben (iyi|kötü|hızlı|kolay|basit|ucuz)\\b",
+    "\\btek (yol|yöntem|şey)\\w*",
+    "\\bbir numaralı\\b"
+   ],
+   "example_tr": "Bir uzun videoyu otuz Short'a çevirmenin en hızlı yolu bu."
   },
   {
    "id": "the-clock",
@@ -89,8 +115,12 @@
    "match": [
     "\\bin (the next )?\\d+ (seconds|minutes|hours)\\b",
     "\\bby the end of this video\\b",
-    "\\bunder \\d+\\b"
-   ]
+    "\\bunder \\d+\\b",
+    "\\b(\\d+|bir|iki|üç|dört|beş|altı|yedi|sekiz|dokuz|on) (saniye|dakika|saat)\\s?(de|da|te|ta|içinde)\\b",
+    "\\bbu videonun sonunda\\b",
+    "\\b\\d+ (saniye|dakika|saat)\\w* altında\\b"
+   ],
+   "example_tr": "Önümüzdeki altı dakika içinde bir sonraki videon için hazır bir başlık, thumbnail ve script'in olacak."
   },
   {
    "id": "i-tried-it",
@@ -101,8 +131,12 @@
    "match": [
     "\\bI (tried|spent|tested|let|gave)\\b",
     "\\bfor \\d+ (days|weeks|months)\\b",
-    "\\bso you don'?t have to\\b"
-   ]
+    "\\bso you don'?t have to\\b",
+    "\\b(denedim|harcadım|test ettim|bıraktım|verdim)\\b",
+    "\\b\\d+ (gün|hafta|ay) boyunca\\b",
+    "\\b(sen|siz) (uğraşma|deneme)\\w* diye\\b"
+   ],
+   "example_tr": "Kanalımı 30 gün boyunca bir yapay zekâya bıraktım. Yüklemelere hiç dokunmadım."
   },
   {
    "id": "the-question",
@@ -112,8 +146,11 @@
    "fails_when": "Must be the viewer's question, not yours. Pull it from your own comments.",
    "match": [
     "^(why|how|what|when|should|can|do|does|is)\\b",
-    "\\?\\s*$"
-   ]
+    "\\?\\s*$",
+    "^(neden|niye|niçin|nasıl|ne|hangi|kim)\\b",
+    "\\b(mı|mi|mu|mü)(sun|sunuz|sın|siniz|yız|yiz)?\\s*\\?"
+   ],
+   "example_tr": "Konu iyiyken videoların neden 30. saniyede ölüyor?"
   },
   {
    "id": "the-before-after",
@@ -124,8 +161,12 @@
    "match": [
     "\\bbefore\\b.*\\bafter\\b",
     "\\bthis was\\b.*\\bthis is\\b",
-    "\\bused to\\b"
-   ]
+    "\\bused to\\b",
+    "\\böncesi?\\b.*\\bsonrası?\\b",
+    "\\beskiden\\b",
+    "\\beski\\w*\\b.*\\b(yeni|şimdiki)\\b"
+   ],
+   "example_tr": "Bu eski thumbnail'ım. Bu da şimdiki. Aynı video, dört kat tıklanma oranı."
   },
   {
    "id": "the-teardown",
@@ -137,8 +178,12 @@
     "\\b(broke|break|breaking) (it )?down\\b",
     "\\bteardown\\b",
     "\\banalys(ed|ed|is|e)\\b",
-    "\\bI pulled\\b"
-   ]
+    "\\bI pulled\\b",
+    "\\b(inceledim|analiz ettim|parçaladım|mercek altına)\\b",
+    "\\banaliz\\w*",
+    "\\b(topladım|derledim)\\b"
+   ],
+   "example_tr": "Ayın en çok izlenen dokuz yapay zekâ videosunu topladım ve başlıklarının ortak noktasını çıkardım."
   },
   {
    "id": "the-stack",
@@ -149,8 +194,12 @@
    "match": [
     "\\b\\w+ (plus|\\+) \\w+\\b",
     "\\bcombine\\b",
-    "\\btogether\\b"
-   ]
+    "\\btogether\\b",
+    "\\bartı\\b",
+    "\\bbirleştir\\w*",
+    "\\bbirlikte\\b"
+   ],
+   "example_tr": "Claude artı YouTube Studio verin, gelecek haftanın yükleme planını tek prompt'ta çıkarıyor."
   },
   {
    "id": "the-warning",
@@ -162,8 +211,12 @@
     "\\bdo not\\b",
     "\\bdon'?t (upload|post|publish|start)\\b",
     "\\bbefore you\\b",
-    "\\bstop\\b"
-   ]
+    "\\bstop\\b",
+    "\\b(yapmayın|yapma|sakın)\\b",
+    "\\b(yüklemeden|paylaşmadan|başlamadan|yayınlamadan) önce\\b",
+    "\\b\\w+(meden|madan)\\b.*\\b(yükleme|paylaşma|başlama|yayınlama)\\b"
+   ],
+   "example_tr": "Şu tek ayarı kontrol etmeden bir video daha yükleme."
   },
   {
    "id": "the-list",
@@ -173,8 +226,11 @@
    "fails_when": "The count must be exact and every item must be different in kind.",
    "match": [
     "^\\d+ \\w+",
-    "\\b(here are|these are) \\d+\\b"
-   ]
+    "\\b(here are|these are) \\d+\\b",
+    "\\b(işte|bunlar) \\d+\\b",
+    "\\b(\\d+|üç|beş|yedi|on) (şey|madde|adım|yöntem|hata|ipucu|sebep)\\w*"
+   ],
+   "example_tr": "2026'da kanal açsaydım farklı yapacağım yedi şey."
   },
   {
    "id": "the-receipt",
@@ -186,8 +242,14 @@
     "\\bthis is (the|my)\\b",
     "\\bscreenshot\\b",
     "\\bproof\\b",
-    "\\breceipts?\\b"
-   ]
+    "\\breceipts?\\b",
+    "\\bbu (benim )?(analitik|istatistik|panel|ekran)\\w*",
+    "\\bekran görüntüsü\\b",
+    "\\bkanıt\\w*",
+    "\\bişte sonuç\\w*",
+    "\\bbu (benim )?\\w+ sayfa\\w*"
+   ],
+   "example_tr": "Bu analitik sayfası. Kanalın izlenme süresinin %40'ı bu videodan geldi. Sebebi şu."
   },
   {
    "id": "the-insider",
@@ -198,8 +260,12 @@
    "match": [
     "\\b(nobody|almost nobody|most people) (knows?|opens?|uses?)\\b",
     "\\bhidden\\b",
-    "\\bburied\\b"
-   ]
+    "\\bburied\\b",
+    "\\b(kimse|çoğu kişi|insanların çoğu)\\b.*\\b(bilmiyor|açmıyor|kullanmıyor|fark etmiyor)\\b",
+    "\\bgizli\\b",
+    "\\b(gömülü|saklı)\\b"
+   ],
+   "example_tr": "YouTube hangi videolarının geride kaldığını söylüyor. Neredeyse kimse o raporu açmıyor."
   },
   {
    "id": "the-impossible",
@@ -211,8 +277,13 @@
     "\\bwithout\\b",
     "\\bnever\\b",
     "\\bin one\\b",
-    "\\bzero\\b"
-   ]
+    "\\bzero\\b",
+    "\\b\\w+(madan|meden)\\b",
+    "\\basla\\b",
+    "\\btek (bir )?\\w+(da|de|ta|te)\\b",
+    "\\bsıfır\\b"
+   ],
+   "example_tr": "Tek bir editör açmadan bir haftalık videonun yazısını, başlığını, thumbnail'ını ve takvimini çıkarabilirsin."
   },
   {
    "id": "the-comparison",
@@ -224,8 +295,13 @@
     "\\bvs\\.?\\b",
     "\\bversus\\b",
     "\\bwhich (one )?(is|wins)\\b",
-    "\\bsame .* (three|two) ways\\b"
-   ]
+    "\\bsame .* (three|two) ways\\b",
+    "\\b(vs|karşı|karşısında)\\b",
+    "\\bhangisi (daha|kazan)\\w*",
+    "\\baynı .* (üç|iki) (farklı )?(şekilde|yolla)\\b",
+    "\\bbiri\\b.*\\bdiğer\\w*"
+   ],
+   "example_tr": "Aynı videoyu üç farklı şekilde yazdım. Biri %62 tuttu, diğer ikisi tutmadı."
   },
   {
    "id": "the-origin",
@@ -236,8 +312,13 @@
    "match": [
     "\\bevery (video|post) .* starts\\b",
     "\\bit all (starts|started)\\b",
-    "\\bthe (real )?reason\\b"
-   ]
+    "\\bthe (real )?reason\\b",
+    "\\bher (video|paylaşım)\\w* .* başlıyor\\b",
+    "\\bher şey .* (başladı|başlıyor)\\b",
+    "\\b(asıl|gerçek) (sebep|neden)\\w*",
+    "\\b(dosya|şablon)\\w*"
+   ],
+   "example_tr": "Bu kanaldaki her video aynı 12 satırlık dosyada başlıyor. İşte o dosya."
   },
   {
    "id": "the-deadline",
@@ -249,8 +330,13 @@
     "\\b(this|next) (week|month|year)\\b",
     "\\bis changing\\b",
     "\\bno longer\\b",
-    "\\bas of\\b"
-   ]
+    "\\bas of\\b",
+    "\\b(bu|gelecek|önümüzdeki) (hafta|ay|yıl)\\w*",
+    "\\bdeğişiyor\\b",
+    "\\bartık (\\w+ )?(yok|değil|işe yaramıyor)\\b",
+    "\\bitibar[ıi]yla\\b|\\bitibaren\\b"
+   ],
+   "example_tr": "Eski açıklama formatı bu ay itibarıyla önemini yitiriyor. Yerine geleni anlatıyorum."
   },
   {
    "id": "the-direct-address",
@@ -261,8 +347,14 @@
    "match": [
     "^if you\\b",
     "\\bfor (anyone|everyone|people) who\\b",
-    "\\byou specifically\\b"
-   ]
+    "\\byou specifically\\b",
+    "^eğer\\b",
+    "\\b(olan|yapan|isteyen|arayan) (herkes|herkese|kişiler)\\w*",
+    "\\btam (olarak )?(sana|size) göre\\b",
+    "\\b\\w+(ysan|ysen|san|sen|sanız|seniz),",
+    "\\bihtiyacın olan\\b|\\bsana göre\\b"
+   ],
+   "example_tr": "Bin aboneden azsan, bu hafta ihtiyacın olan tek video bu."
   }
  ]
 }
